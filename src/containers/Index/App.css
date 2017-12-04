@@ -1,28 +1,40 @@
-.App {
+.logo {
+  height: 32px;
+  background: #333;
+  border-radius: 6px;
+  margin: 16px;
+}
+.layout{
+  height: 100vh;
+}
+.ant-layout-header .right{
+  float: right;
+  height: 64px;
+}
+.ant-layout-header .section{
+  display: inline-block;
+  height: 64px;
+  line-height: 64px;
+  cursor: pointer;
+  transition:all .3s;  
+}
+.ant-layout-header .section:hover{
+       background-color: rgba(24, 144, 255,.3);
+}
+.ant-layout-header .right .notice{
+  width:64px;
   text-align: center;
 }
+.ant-layout-header .right .user{
+  margin-right:16px;
+  padding: 0 20px;
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.ant-layout-header .right .user .ant-avatar{
+  vertical-align: middle;
+  margin-right: 10px;
 }
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.dropdownFrame{
+  margin-right: 50px;
 }
