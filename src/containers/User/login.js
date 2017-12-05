@@ -113,12 +113,12 @@ function mapStateToProps(state){
 		userinfo:state.userinfo
 	}
 }
-
 function mapDispatchToProps(dispatch) {
     return {
     	userinfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch)
     }
 }
+
 
 
 Login.contextTypes = {

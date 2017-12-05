@@ -6,59 +6,55 @@
 */
 import React, { Component } from 'react'
 import { Link,withRouter} from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as userInfoActionsFromOtherFile from '../../actions/userinfo'
 import PropTypes from 'prop-types';
-import { Layout, Menu,Breadcrumb, Icon ,Badge,Avatar,Dropdown} from 'antd';
+import { Layout, Menu, Icon ,Badge,Avatar} from 'antd';
 import './frame.css'
 import { deleteLocalStorage } from '../../utils/localStorage.js'
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
+function chooseKey(path){
+	switch(path){		
+		case "/dashboard":
+			return ['1']
+		case "/":
+			return ['1']
+		case "/member/student":
+			return ['2']
+		case "/member/worker":
+			return ['3']	
+		case "/repair":
+			return ['4']
+		default:
+		  	return ['1']
+	}
+}
 
-
-const menu = (
-	<div>
-		<Menu>
-	    <Menu.Item key="10" disabled>
-	      <a rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
-	    </Menu.Item>
-	    <Menu.Item key="20">
-	      <a rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
-	    </Menu.Item>
-	    <Menu.Divider />
-	    <Menu.Item key="30"><span  onClick={this.logout}><Icon type="logout" />退出登录</span></Menu.Item>
-	  </Menu>
-	</div>
-  
-);
 
 class Frame extends Component{
 	state = {
     	collapsed: false
-    	,userinfo:{}
-		,notice:0
-		,firstBreadcrumb:"总览"
-		,secondBreadcrumb:""
 	};
+
 	toggle = () => {
 	    this.setState({
 	      collapsed: !this.state.collapsed,
 	    });
-	  }
+	};
 
-	logout = () =>{
+	logout(){
 		deleteLocalStorage('token')
-		console.log("*********")
-		this.props.router.push('/user/login')
-	 }
-	componentDidMount(){
-		this.setState({
-			userinfo:this.props.userinfo
-			,notice:this.props.notice
-		})
+		this.props.history.push('/user/login')
+	 };
+
+	componentDidMount(){	
+		
 	}
 	render(){
 		return(
-
 			<Layout className="layout">
 			    <Sider
 			      trigger={null}
@@ -66,7 +62,7 @@ class Frame extends Component{
           			collapsed={this.state.collapsed}
 			    >
 			      <div className="logo">Sven Barnett</div>
-			      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+			      <Menu theme="dark" mode="inline" defaultSelectedKeys={chooseKey(this.props.history.location.pathname)}>
 			        <Menu.Item key="1">
 			        	<Link to='/dashboard'>
 			        	<Icon type="dashboard" />
@@ -77,25 +73,23 @@ class Frame extends Component{
 		              key="sub1"
 		              title={<span><Icon type="user" /><span>用户管理</span></span>}
 		            >
-		              <Menu.Item key="6">
-		              <Link to="/dashboard">
+		              <Menu.Item key="2">
+		              <Link to="/member/student">
 			            <span className="nav-text">学生用户</span>
 			          </Link>
 			          </Menu.Item>
-		              <Menu.Item key="7">
-		              <Link to='/dashboard'>
+		              <Menu.Item key="3">
+		              <Link to='/member/worker'>
 			            <span className="nav-text">维修用户</span>
 			          </Link>
 			          </Menu.Item>		              
 		            </SubMenu>
-			        <Menu.Item key="3">
+			        <Menu.Item key="4">
+			        	<Link to='/repair'>
 			          <Icon type="tool" />
 			          <span className="nav-text">维修管理</span>
-			        </Menu.Item>
-			        <Menu.Item key="4">
-			          <Icon type="user" />
-			          <span className="nav-text">nav 4</span>
-			        </Menu.Item>
+			          </Link>
+			        </Menu.Item>			   
 			      </Menu>
 			    </Sider>
 			    <Layout>
@@ -115,20 +109,19 @@ class Frame extends Component{
 						      	<Icon type="bell" style={{ fontSize: 20}} />
 						    </Badge>
 						</span>
-						<Dropdown overlay={menu} placement="bottomLeft" trigger={['hover']}>
+						
 						  <span className="section user" >
-						  <Avatar src={this.state.userinfo?this.state.userinfo.headimg:null}/>
-						 		{this.state.userinfo?this.state.userinfo.username:null}
+						  <Avatar src={this.props.userinfo?this.props.userinfo.headimg:null}/>
+						 		{this.props.userinfo?this.props.userinfo.username:null}
 						  </span>
-						</Dropdown>
+						   <span className="section user" onClick={this.logout.bind(this)}>
+						 	 <Icon type="logout" />退出登录
+						  </span>
+						
 					</div>						
 			      </Header>
-			      <Content style={{ margin: '10px 16px 0' }}>
-			        <Breadcrumb style={{ margin: '10px 0' }}>
-		              <Breadcrumb.Item>{this.state.firstBreadcrumb}</Breadcrumb.Item>
-		              <Breadcrumb.Item>{this.state.secondBreadcrumb}</Breadcrumb.Item>
-		            </Breadcrumb>
-			        <div style={{ padding: 24, background: '#fff', minHeight: "70vh" }}>
+			      <Content style={{ margin: '10px 16px 0'}}>			       
+			        <div style={{ padding: 20, background: '#fff', minHeight: "65vh",borderRadius:"10px"}}>
 			          {this.props.children}
 			        </div>
 			      </Content>
@@ -142,11 +135,24 @@ class Frame extends Component{
 			)
 	}
 }
+
+function mapStateToProps(state) {
+    return {
+        userinfo:state.userinfo
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    	userinfoActions:bindActionCreators(userInfoActionsFromOtherFile, dispatch)
+    }
+}
+
 Frame.propTypes = {
-    userinfo: PropTypes.object,
-    notice: PropTypes.number
+    userinfo: PropTypes.object 
 }
-Frame.contextTypes = {
-    router: PropTypes.object,   
-}
-export default withRouter(Frame)
+
+export default withRouter(connect(
+	mapStateToProps
+	,mapDispatchToProps
+	)(Frame))
