@@ -22,10 +22,9 @@ export function post(url, paramsObj) {
     var result = fetch(baseUrl+url, {
         method: 'POST',
         mode: "cors",
-        credentials: 'include',
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded'            
         },
         body: obj2params(paramsObj)
     });

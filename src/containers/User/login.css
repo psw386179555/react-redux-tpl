@@ -1,0 +1,28 @@
+/*
+* @Author: Administrator
+* @Date:   2017-12-05 14:04:43
+* @Last Modified by:   Administrator
+* @Last Modified time: 2017-12-05 14:54:30
+*/
+.login-box{
+	width: 300px;	
+	margin: 0 auto;
+	padding-top: 100px;
+	height: 100vh;
+	background-image: url('https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg');
+	background-repeat: repeat-x;
+}
+.login-box form{	
+	background-color:rgba(226,226,226,0.3);
+	box-shadow: 0 0 20px #90A4AE;
+	padding: 10px 20px;
+	border-radius: 10px;
+}
+.login-title{
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+.login-form-button{
+	width: 100%;
+}

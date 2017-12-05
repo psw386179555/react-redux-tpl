@@ -6,16 +6,21 @@ const app = new Koa();
 const router = new Router();
  
 
-let homeAdData = require('./home/ad.js')
-router.get('/',function (ctx, next){
-    ctx.body = homeAdData
-});
-
-
-// 首页 —— 推荐列表（猜你喜欢）
 let homeListData = require('./home/list.js')
 router.get('/api/homelist',function (ctx, next){
     ctx.body = homeListData
+});
+
+
+let userInfo = require('./user/user.js')
+router.post('/api/user/login',function (ctx, next){
+	let num = 2
+	let ret = {
+		state:200
+		,token:'fgfd5fd4g5sgr2g1d2fg4sd5'
+		,data:userInfo[num]
+	}
+    ctx.body = ret
 });
 
 
