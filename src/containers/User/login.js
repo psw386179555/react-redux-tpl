@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-12-05 11:11:41
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-12-06 12:05:42
+* @Last Modified time: 2017-12-06 17:07:31
 */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -74,7 +74,11 @@ class Login extends React.Component{
 	render() {
     	const { getFieldDecorator } = this.props.form
 	    return (
+	    	
 	    	<div className="login-container">
+	    	<video className="login-mp4" autoPlay='autoplay' loop='loop'>
+				<source src="/intro.mp4" type="video/mp4"/>
+			</video>
 	    		<div className="login-box">	    
 	    		<Form onSubmit={this.handleSubmit} className="login-form">
 	    		 	<FormItem>	      
