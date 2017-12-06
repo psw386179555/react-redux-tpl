@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-12-05 11:11:41
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-12-05 17:58:51
+* @Last Modified time: 2017-12-06 12:05:42
 */
 import React from 'react'
 import { connect } from 'react-redux'
@@ -74,7 +74,8 @@ class Login extends React.Component{
 	render() {
     	const { getFieldDecorator } = this.props.form
 	    return (
-	    	<div className="login-box">	    
+	    	<div className="login-container">
+	    		<div className="login-box">	    
 	    		<Form onSubmit={this.handleSubmit} className="login-form">
 	    		 	<FormItem>	      
 			           	<p className="login-title">管理员登录</p>
@@ -103,7 +104,9 @@ class Login extends React.Component{
 			        </Button>
 			        </FormItem>
 			      </Form>
-	    	</div>	      
+	    	</div>
+	    	</div>
+	    		      
 	    );
 	  }
 }

@@ -24,6 +24,8 @@ router.post('/api/user/login',function (ctx, next){
 });
 
 
+
+
 app.use(cors())
 app.use(router.routes()).use(router.allowedMethods());
 

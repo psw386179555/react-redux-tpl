@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-12-05 10:05:33
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-12-05 17:27:24
+* @Last Modified time: 2017-12-06 10:30:16
 */
 import React from 'react'
 import { withRouter } from 'react-router-dom'
@@ -13,7 +13,7 @@ import { login } from '../fetch/user/user'
 import * as userInfoActionsFromOtherFile from '../actions/userinfo'
 
 import { getLocalStorage } from '../utils/localStorage.js'
-
+import 'ant-design-pro/dist/ant-design-pro.css';
  
 class App extends React.Component{	
 	render(){

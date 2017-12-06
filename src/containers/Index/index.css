@@ -1,0 +1,14 @@
+.chartBoxAll{
+
+
+}
+.chartBox{
+  float: left; 
+  margin:20px 10px;
+}
+.chart1{
+  width: 300px; 
+}
+.chart2{
+  width:500px;
+}

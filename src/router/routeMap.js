@@ -17,16 +17,19 @@ export default class RouteMap extends Component{
 				<Router>
 					<App>
 					<Switch>
-						<Route exact path="/user/login" component={Login}/>						
-						<Route exact path='/404' component={Pages404} />						
+						<Route exact path="/user/login" component={Login}/>
 						<Frame>
+							<Switch>
 							<Route exact path="/" component={Index}/>
 							<Route exact path="/dashboard" component={Index}/>
 							<Route exact path="/member/student" component={Student}/>
 							<Route exact path="/member/worker" component={Worker}/>
 							<Route exact path="/repair" component={Repair}/>
+							<Route exact path='/404' component={Pages404} />	
+							<Redirect exact from='*' to='/404' />
+							</Switch>	
 						</Frame>
-						<Redirect exact from='*' to='/404' />						
+									
 					</Switch>
 					</App>
 				</Router>				

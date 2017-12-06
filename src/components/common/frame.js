@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2017-12-05 11:26:54
 * @Last Modified by:   Administrator
-* @Last Modified time: 2017-12-05 17:57:23
+* @Last Modified time: 2017-12-06 14:52:44
 */
 import React, { Component } from 'react'
 import { Link,withRouter} from 'react-router-dom'
@@ -10,11 +10,15 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as userInfoActionsFromOtherFile from '../../actions/userinfo'
 import PropTypes from 'prop-types';
-import { Layout, Menu, Icon ,Badge,Avatar} from 'antd';
+import { Layout, Menu, Icon ,Avatar,Spin } from 'antd';
 import './frame.css'
 import { deleteLocalStorage } from '../../utils/localStorage.js'
+import MyNoticeIcon from './noticeIcon.js'
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
+
+
+
 
 function chooseKey(path){
 	switch(path){		
@@ -34,30 +38,40 @@ function chooseKey(path){
 }
 
 
-class Frame extends Component{
+class Frame extends Component{	
 	state = {
-    	collapsed: false
+    	collapsed: false    	
 	};
 
 	toggle = () => {
 	    this.setState({
 	      collapsed: !this.state.collapsed,
 	    });
-	};
-
+	};	
 	logout(){
 		deleteLocalStorage('token')
 		this.props.history.push('/user/login')
 	 };
-
-	componentDidMount(){	
-		
+	 componentWillReceiveProps(){
+		console.log("*******componentWillReceiveProps**********")
+		let that = this
+		this.setState({
+			loading:true
+		})
+		setTimeout(function(){
+			that.setState({
+				loading:false
+			})
+		},1000)	
+	 }
+	componentDidMount(){
+			
 	}
 	render(){
 		return(
 			<Layout className="layout">
-			    <Sider
-			      trigger={null}
+			    <Sider			   
+			      	trigger={null}
           			collapsible={true}
           			collapsed={this.state.collapsed}
 			    >
@@ -105,9 +119,7 @@ class Frame extends Component{
 			        
 					<div className="right">
 						<span className="section notice">
-							 <Badge count={this.state.notice} >
-						      	<Icon type="bell" style={{ fontSize: 20}} />
-						    </Badge>
+							<MyNoticeIcon/>
 						</span>
 						
 						  <span className="section user" >
@@ -122,7 +134,11 @@ class Frame extends Component{
 			      </Header>
 			      <Content style={{ margin: '10px 16px 0'}}>			       
 			        <div style={{ padding: 20, background: '#fff', minHeight: "65vh",borderRadius:"10px"}}>
-			          {this.props.children}
+			          
+						{
+							this.state.loading?<div className="spinBox"><Spin/></div>:this.props.children
+						}	
+			     
 			        </div>
 			      </Content>
 			      <Footer style={{ textAlign: 'center' }}>
